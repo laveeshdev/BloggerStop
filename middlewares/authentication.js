@@ -3,17 +3,22 @@ import { validateToken } from "../services/authentication.js";
 
 function checkForAuthenticationCookie(cookieName){
     return (req , res , next) => {
+      
        
-            const tokenCookieValue = req.cookies[cookieName].token ; 
+            const tokenCookie = req.cookies[cookieName] ; 
+            
+          
+            if(!tokenCookie){
+                return next() ; 
+            }
+            const tokenCookieValue = tokenCookie.token ; 
             console.log(`tokenCookieValue is ${tokenCookieValue}`);
             
         
 
         
         
-        if(!tokenCookieValue){
-            next() ; 
-        }
+        
 
         try {
             const userPayload = validateToken(tokenCookieValue) ; 
@@ -26,7 +31,7 @@ function checkForAuthenticationCookie(cookieName){
             
             
         }
-        next() ; 
+         return next() ; 
 
 
     } ;
