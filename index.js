@@ -17,7 +17,7 @@ mongoose.connect('mongodb://localhost:27017/blogify').then(()=>{
 app.use(express.json()) ; 
 app.use(express.urlencoded({extended : true })) ; 
 app.use(cookieParser()) ; 
-// app.use(checkForAuthenticationCookie('token')) ; 
+app.use(checkForAuthenticationCookie('token')) ; 
 
 app.set('view engine' , 'ejs') ;
 app.set("views" , path.resolve("./views")) ; 
