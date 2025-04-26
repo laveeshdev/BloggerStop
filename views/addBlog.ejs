@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('./partials/head') %>
+    <title>Add Blog</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #333;
+        }
+        .form-floating {
+            margin-bottom: 15px;
+        }
+        .form-control {
+            border-radius: 4px;
+            border: 1px solid #ced4da;
+        }
+        .file-upload {
+            margin-bottom: 15px;
+        }
+        .file-upload label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #333;
+        }
+        .file-upload input[type="file"] {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ced4da;
+            border-radius: 4px;
+            background-color: #f8f9fa;
+            cursor: pointer;
+        }
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .btn:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+
+<body>
+    <%- include('./partials/nav') %>
+
+    <div class="container mt-3">
+        <h1>Add a New Blog</h1>
+        <form action="/blog/add-new" method="post" enctype="multipart/form-data">
+            <!-- Title Field -->
+            <div class="form-floating">
+                <input type="text" class="form-control" id="title" name="title" placeholder="Title of Your Blog" required>
+                <label for="title">Title</label>
+            </div>
+
+            <!-- Body Field -->
+            <div class="form-floating">
+                <textarea class="form-control" id="body" name="body" placeholder="Write Your Blog!" style="height: 150px" required></textarea>
+                <label for="body">Body</label>
+            </div>
+
+            <!-- Image Upload Field -->
+            <div class="file-upload">
+                <label for="image">Cover Photo</label>
+                <input type="file" class="form-control" id="image" name="coverImage" accept="image/*" required>
+            </div>
+
+            <!-- Submit Button -->
+            <button type="submit" class="btn">Submit Blog</button>
+        </form>
+    </div>
+
+    <%- include('./partials/scripts') %>
+</body>
+</html>
