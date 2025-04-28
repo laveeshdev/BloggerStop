@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <%- include('./partials/head') %>
+    <title>Blog</title>
+    <style>
+      .blog-container {
+        max-width: 800px;
+        margin: 50px auto;
+        padding: 20px;
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      }
+      .blog-image {
+        display: block;
+        max-width: 100%; /* Ensures the image doesn't exceed the container width */
+        max-height: 400px; /* Limits the height of the image */
+        margin: 20px auto; /* Centers the image */
+        border-radius: 8px; /* Adds rounded corners */
+        object-fit: cover; /* Ensures the image scales proportionally */
+      }
+      h1 {
+        text-align: center;
+        margin-bottom: 20px;
+        color: #333;
+      }
+    </style>
+  </head>
+
+  <body>
+    <%- include('./partials/nav') %>
+    <div class="container blog-container">
+      <h1><%= blog.title %></h1>
+      <img
+        src="<%= blog.coverImageURL %>"
+        alt="Blog Cover Image"
+        class="blog-image"
+      />
+      <p><%= blog.body %></p>
+    </div>
+
+    <%- include('./partials/scripts') %>
+  </body>
+</html>

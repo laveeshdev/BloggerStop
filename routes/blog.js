@@ -17,11 +17,20 @@ const storage = multer.diskStorage({
   
   const upload = multer({ storage: storage })
 
+router.get("/:id" , async (req , res) =>{
+    const blog = await Blog.findById(req.params.id) ; 
+    res.render('blog' , {
+        user : req.user , 
+        blog : blog ,
+    })
+})
+
 router.get('/add-new' , (req,res)=>{
     return res.render('addBlog' , {
         user : req.user ,
 
     })
+
 }).post('/add-new' ,upload.single('coverImage') ,  async (req , res)=> {
     console.log(req.body) ; 
     console.log(req.file) ; 
@@ -36,6 +45,8 @@ router.get('/add-new' , (req,res)=>{
     return res.redirect(`/blog/${blog._id}`) ;
 
 })
+
+
 
 
 export default router  ; 
