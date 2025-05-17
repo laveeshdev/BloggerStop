@@ -57,9 +57,13 @@ router.post('/comment/:blogId' , async (req , res) => {
 
 })
 router.get("/:id" , async (req , res) =>{
-    console.log(`creted by ${req.user._id}`);
+    // console.log(`creted by ${req.user._id}`);
     const blog = await Blog.findById(req.params.id).populate('createdBy') ;
+    const comments = await Comment.find({blogId : req.params.id}).populate('createdBy') ;
     if(!blog) return res.status(404).send("not found") ; 
+    console.log("the comemts  is :- ");
+    console.log(comments);
+    
     console.log("the bl0g is :- ");
     
     console.log(blog);
@@ -67,6 +71,7 @@ router.get("/:id" , async (req , res) =>{
     res.render('blog' , {
         user : req.user , 
         blog : blog ,
+        comments : comments ,
     })
 })
 
