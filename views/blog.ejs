@@ -38,6 +38,57 @@
         class="blog-image"
       />
       <p><%= blog.body %></p>
+
+      <!-- Created By Block -->
+      <div
+        style="
+          margin-top: 40px;
+          padding: 16px;
+          background: #f8f9fa;
+          border-radius: 8px;
+          display: flex;
+          align-items: center;
+          box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        "
+      >
+        <img
+          src="<%= blog.createdBy && blog.createdBy.profileImageURL ? blog.createdBy.profileImageURL : '/images/user.png' %>"
+          alt="Author"
+          style="
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-right: 16px;
+          "
+        />
+        <div>
+          <div style="font-weight: bold; color: #333">
+            <%= blog.createdBy && blog.createdBy.fullName ?
+            blog.createdBy.fullName : 'Unknown Author' %>
+          </div>
+        </div>
+      </div>
+
+      <!-- Comment Block -->
+      <div style="margin-top: 40px">
+        <form
+          action="/comment/<%= blog._id %>"
+          method="POST"
+          style="display: flex; gap: 10px; align-items: flex-start"
+        >
+          <textarea
+            name="content"
+            class="form-control"
+            placeholder="Add a comment..."
+            required
+            style="flex: 1; min-height: 60px; resize: vertical"
+          ></textarea>
+          <button type="submit" class="btn btn-primary" style="height: 40px">
+            Comment
+          </button>
+        </form>
+      </div>
     </div>
 
     <%- include('./partials/scripts') %>

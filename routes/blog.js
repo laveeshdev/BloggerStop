@@ -2,6 +2,7 @@ import { Router } from "express";
 import multer from "multer" ;
 import path from "path" ;  
 import Blog from "../models/blog.js"
+import Comment from "../models/comment.js" ;
 const router = Router() ; 
 
 const storage = multer.diskStorage({
@@ -44,6 +45,15 @@ router.get('/add-new' , (req,res)=>{
     }) ; 
     
     return res.redirect(`/blog/${blog._id}`) ;
+
+})
+router.post('/comment/:blogId' , async (req , res) => {
+    const comment = await Comment.create({
+        content : req.body.content , 
+        blogId : req.params.blogId , 
+        createdBy : req.user._id , 
+    }) ; 
+    res.redirect(`/blog/${req.params.blogId}`) ;
 
 })
 router.get("/:id" , async (req , res) =>{
