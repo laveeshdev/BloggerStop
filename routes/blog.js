@@ -20,27 +20,40 @@ const storage = multer.diskStorage({
 
 
 router.get('/add-new' , (req,res)=>{
+    // console.log("the req is : ");
+    
+    // console.dir(req.user, { depth: null });
+
     return res.render('addBlog' , {
         user : req.user ,
 
     })
 
 }).post('/add-new' ,upload.single('coverImage') ,  async (req , res)=> {
-    console.log(req.body) ; 
-    console.log(req.file) ; 
+    // console.log(req.body) ; 
+    // console.log(req.file) ; 
+    console.log(`creted by ${req.user._id}`);
+    
     const { title , body} = req.body ; 
 
     const blog = await Blog.create({
         body , 
         title , 
-        createdBy : req._id , 
+        createdBy : req.user._id , 
         coverImageURL : `/uploads/${req.file.filename}` ,
     }) ; 
+    
     return res.redirect(`/blog/${blog._id}`) ;
 
 })
 router.get("/:id" , async (req , res) =>{
-    const blog = await Blog.findById(req.params.id) ; 
+    console.log(`creted by ${req.user._id}`);
+    const blog = await Blog.findById(req.params.id).populate('createdBy') ;
+    if(!blog) return res.status(404).send("not found") ; 
+    console.log("the bl0g is :- ");
+    
+    console.log(blog);
+    
     res.render('blog' , {
         user : req.user , 
         blog : blog ,
